@@ -21,3 +21,13 @@ func GetUser(ctx echo.Context) (u *user.User, err error) {
 
 	return u, nil
 }
+
+// MustGetUser get user from context.
+func MustGetUser(ctx echo.Context) (u *user.User) {
+	u, err := GetUser(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	return u
+}

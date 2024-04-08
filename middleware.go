@@ -25,8 +25,8 @@ func Create(secretKey string, opts ...*CreateOptions) echo.MiddlewareFunc {
 				signer = jwt.New(secretKey)
 			}
 
-			token := ctx.Request().Header.Get("x-connect-token")
-			if token != "" {
+			token, err := GetToken(ctx)
+			if err == nil {
 				user := &user.User{}
 				if err := user.Decode(signer, token); err != nil {
 					// if ctx.AcceptJSON() {
